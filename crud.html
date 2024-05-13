@@ -111,7 +111,7 @@
             <h3>LIST OF CONTACTS</h3>
             <div class="searchdiv">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search">
+                <input type="search" class="searchhere">
             </div>
             <table class="mytable">
                 <tr>
@@ -135,7 +135,7 @@
     </section>
 
     <script>
-        const userarray=[];
+        let userarray=[];
         let user=document.getElementsByClassName('user');
         let adduser=document.getElementById('addbtn');
         adduser.addEventListener('click',adduserinfo);
@@ -151,9 +151,6 @@
             removeinput();
         }
         function removeinput(){
-            // user.forEach(e=>{
-            //     e.value='';
-            // });
             for(let i=0;i<user.length;i++){
                 user[i].value='';
             }
@@ -181,28 +178,35 @@
             edit.innerHTML='<i class="fa-solid fa-pen"></i>';
             tr.appendChild(edit);
             let delet=document.createElement('td');
-            // delet.addEventListener('click',removeuserinfo);
             delet.addEventListener('click', removeuserinfo);
             delet.innerHTML='<i class="fa-solid fa-trash"></i>';
             tr.appendChild(delet);
             table.appendChild(tr);
             });
         }
-        //  function removeuserinfo(this) {
-        //    this.closest('tr').remove();
-        // } 
 
-         function removeuserinfo() {
-        this.closest('tr').remove();
-        let personname=this.closest('tr').nextSiblind('td').innerHTML;
-        userarray.forEach(e=>{
-          if(e.name==personname){
-            
-          }
-        })
+        function removeuserinfo() {
+        let t=this.closest('tr').remove();
+        let getusername=this.closest('tr').firstElementChild.innerHTML;
+        console.log(getusername);
+        let updateuserarray=userarray.findIndex(e=>e.name==getusername);
+        userarray.splice(updateuserarray,1);
+        console.log(userarray);
     }
 
-    //     console.log(userarray);
+    let searchdiv=document.querySelector('.searchhere');
+    searchdiv.addEventListener('click',updatearray);
+  
+    function updatearray(){
+        let searchdivvalue=searchdiv.value;
+        console.log('inner console',searchdivvalue);
+        let updateagainarray=userarray.filter(e=>e.name==searchdivvalue);
+        console.log(updateagainarray);
+        displayuserinfo(updateagainarray);
+    }
+    setTimeout(updatearray,2000);
+
+    // console.log(userarray);
     </script>
     
 </body>
