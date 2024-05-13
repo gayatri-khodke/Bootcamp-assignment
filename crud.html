@@ -1,0 +1,209 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crud operation</title>
+    <script src="https://kit.fontawesome.com/20945cdd74.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+        h2{
+            font-size:2rem;
+            font-family:cursive;
+            padding:1rem;
+            text-align:center;
+        }
+        h3{
+            margin-bottom:1rem;
+            text-align:center;
+        }
+        .container{
+            display:flex;
+            justify-content:space-around;
+            align-items:center;
+        }
+        .wraper1,.wraper2{
+            width:40%;
+            height:80vh;
+            padding:2rem;
+            background-color:#fff;
+            border:2px solid gray;
+        }
+        .wraper2{
+            width:50%;
+            overflow:auto;
+        }
+        label,input{
+            width:100%;
+            display:block;
+            font-size:1.2rem;
+        }
+        input{
+            padding:0.5rem;
+            margin-bottom:0.5rem;
+        }
+        .wraper1 button{
+            float:right;
+            padding:0.8rem;
+            margin:1rem;
+            font-size:1.1rem;
+            background-color:skyblue;
+            border-radius:5px;
+            border:none;
+        }
+        .searchdiv{
+            display:flex;
+            align-items:center;
+            border-radius:20px;
+            font-size:1rem;
+            padding:0px;
+            width:70%;
+            margin:auto;
+            border:1px solid rgb(228, 227, 227);
+        }
+        .searchdiv i{
+            margin:0px 0.3rem;
+            font-size:1.5rem;
+            color:rgb(69, 68, 68);
+        }
+        .searchdiv input{
+            outline:none;
+            border:none;
+            width:90%;
+            padding:0.2rem;
+        }
+        .wraper2 table{
+            margin-top:1rem;
+        }
+        table{
+            max-width:100%;
+            margin:auto;
+        }
+        table,td,tr,th{
+            border:2px solid rgb(90, 89, 89);
+            border-collapse:collapse;
+            padding:0.7rem;
+        }
+    </style>
+</head>
+<body>
+    <h2>PhoneBook Application</h2>
+    <section class="container">
+        <div class="wraper1">
+            <h3>ADD NEW CONTACT</h3>
+                <label for="fname">First Name</label>
+                <input type="text" class="user" value="" name="fname">
+                <label for="lanme">Last Name</lable>
+                <input type="text" class="user" vlaue="" nam="lname">
+                <label for="phone">Phone Number</label>
+                <input type="number" class="user" value="" name="phone">
+                <label for="email">Email</label>
+                <input type="email"  class="user" value="" name="email"> 
+                <label for="address">Address</lable>
+                <input type="text" class="user" value="" name="address">
+                <button type="button" id="addbtn">Add Contact</button>
+        </div>
+        <div class="wraper2">
+            <h3>LIST OF CONTACTS</h3>
+            <div class="searchdiv">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search">
+            </div>
+            <table class="mytable">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <tr>
+                    <td>Gayatri</td>
+                    <td>Khodke</td>
+                    <td>gayatri@gmail.com</td>
+                    <td>Buldhana Maharashtra</td>
+                    <td><i class="fa-solid fa-pen"></i></td>
+                    <td><i class="fa-solid fa-trash"></i></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        const userarray=[];
+        let user=document.getElementsByClassName('user');
+        let adduser=document.getElementById('addbtn');
+        adduser.addEventListener('click',adduserinfo);
+        function adduserinfo(){
+            let obj={};
+            obj.name=user[0].value;
+            obj.lastname=user[1].value;
+            obj.phone=user[2].value;
+            obj.email=user[3].value;
+            obj.address=user[4].value;
+            userarray.push({...obj});
+            displayuserinfo(userarray);
+            removeinput();
+        }
+        function removeinput(){
+            // user.forEach(e=>{
+            //     e.value='';
+            // });
+            for(let i=0;i<user.length;i++){
+                user[i].value='';
+            }
+        }
+
+        const headarray=['First Name','Last Name','phone','Email','address','Edit','Delete'];
+        function displayuserinfo(person){
+            let table=document.querySelector('.mytable');
+            table.innerHTML='';
+            let tr1=document.createElement('tr');
+            for(let i=0;i<headarray.length;i++){
+                let th=document.createElement('th');
+                th.innerHTML=headarray[i];
+                tr1.appendChild(th);
+            }
+            table.appendChild(tr1);
+            person.forEach(user=>{
+                let tr=document.createElement('tr');
+                for(let key in user){
+                let td=document.createElement('td');
+                td.innerHTML=user[key];
+                tr.appendChild(td);
+            }
+            let edit=document.createElement('td');
+            edit.innerHTML='<i class="fa-solid fa-pen"></i>';
+            tr.appendChild(edit);
+            let delet=document.createElement('td');
+            // delet.addEventListener('click',removeuserinfo);
+            delet.addEventListener('click', removeuserinfo);
+            delet.innerHTML='<i class="fa-solid fa-trash"></i>';
+            tr.appendChild(delet);
+            table.appendChild(tr);
+            });
+        }
+        //  function removeuserinfo(this) {
+        //    this.closest('tr').remove();
+        // } 
+
+         function removeuserinfo() {
+        this.closest('tr').remove();
+        let personname=this.closest('tr').nextSiblind('td').innerHTML;
+        userarray.forEach(e=>{
+          if(e.name==personname){
+            
+          }
+        })
+    }
+
+    //     console.log(userarray);
+    </script>
+    
+</body>
+</html> 

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom</title>
+    <style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+    .task1 {
+        width: 300px;
+        margin: 1rem auto;
+    }
+#formwraper {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.userinput,.userpassward,
+#btn,#btn3{
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#btn,#btn3{
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+#btn:hover {
+  background-color: #0056b3;
+}
+
+.output {
+  margin-top: 20px;
+}
+
+.info {
+  margin-bottom: 10px;
+}
+
+.info span {
+  font-weight: bold;
+  color: #007bff;
+}
+.task2{
+    width:100%;
+    height:250px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.wraper2{
+    text-align:center;
+    width:25%;
+    height:100%;
+}
+.colordiv, .colordiv2{
+    width:100%;
+    height:90%;
+    /* background-color:rgb(126, 160, 126); */
+    background-color:rgb(152, 180, 183);
+}
+.colordiv2{
+    background-color:orange;
+}
+.btn2{
+    padding:0.5rem;
+    margin-top:1rem;
+    background-color:orange;
+    border:none;
+    border-radius:4px;
+}
+.task3{
+    margin:2rem 0px;
+    width: 100%;
+    text-align:center;
+}
+.wraper3{
+    border:2px solid rgb(143, 135, 136);
+    width:30%;
+    height:40vh;
+    margin:auto;
+    padding:4rem;
+}
+.captcha{
+    font-size:2rem;
+    padding:1rem;
+    border-radius:5px;
+    width:100%;
+    font-family:cursive;
+    text-shadow:4px 4px rgb(123, 121, 121);
+}
+.entercaptcha{
+    display:block;
+    margin:1rem auto;
+    padding:0.5rem;
+    width:100%;
+}
+    </style>
+</head>
+<body>
+    <section class="task1">
+    <form id="formwraper">
+        <label for="userinput">User Name</label>
+        <input class="userinput" type="text" value="" name="name"><br>
+        <label for="userpassward">User passward</label>
+        <input class="userpassward" type="password" value="" name="passward"><br>
+        <button id="btn" type="button">Login btn</button>
+        <div class="output">
+        <h3 class="info">UserName =<span></span> </h3>
+        <h3 class="info">UserPassward =<span></span> </h3>
+        </div>
+    </form>
+    </section>
+    <section class="task2">
+        <div class="wraper2">
+            <div class=colordiv></div>
+            <button class="btn2" onclick="changeColor()">Change Color</button>
+        </div>
+    </section>
+    <section class="task3">
+        <div class="wraper3">
+            <input class="element captcha" type="text">
+            <input class="element entercaptcha" type="text">
+            <button id="btn3" class="element">Submit</button>
+
+        </div>
+    </section>
+    
+
+    <script>
+        // task1
+        let username=document.querySelector('.userinput');
+        let userpassward=document.querySelector('.userpassward');
+        let btn=document.getElementById('btn');
+        let outputdiv=document.getElementsByTagName('span');
+        btn.addEventListener('click', displayuserdata);
+        function displayuserdata(){
+            let name=username.value;
+            let pass=userpassward.value;
+            outputdiv[0].innerHTML=name;
+            outputdiv[1].innerHTML=pass;
+            username.value='';
+            userpassward.value='';
+        }
+
+        // task2
+        let mybool=false;
+        let btn2=document.querySelector('.btn2');
+        let colordiv=document.querySelector('.colordiv');
+        function changeColor(){
+            mybool=!mybool;
+            colordiv.style.backgroundColor=mybool ? 'rgb(152, 180, 183)':'rgb(58, 151, 58)';
+        }
+
+        // task3
+        let captcha=document.querySelector('.captcha');
+        let entercaptcha=document.querySelector('.entercaptcha');
+        let button=document.querySelector('#btn3');
+        button.addEventListener('click',changecaptcha);
+        function changecaptcha(){
+            let alphaarray = ['A','B','C','D','a','b','c','e','f','g','h','i','j','k','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','1','2','3','4','5','6','7','8','9','3','4','5','6','7','8','9','4','6','7'];
+            alphaarray.sort(function(){
+          return 0.5 - Math.random();
+        });
+        let captchaText = alphaarray.slice(0, 6).join('');
+        captcha.value=captchaText;
+        entercaptcha.value='';
+        }
+    </script>
+</body>
+</html>
