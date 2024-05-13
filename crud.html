@@ -11,6 +11,9 @@
             padding:0;
             box-sizing:border-box;
         }
+        body{
+            background-color:rgb(239, 242, 243);
+        }
         h2{
             font-size:2rem;
             font-family:cursive;
@@ -31,7 +34,9 @@
             height:80vh;
             padding:2rem;
             background-color:#fff;
-            border:2px solid gray;
+            /* border:2px solid gray; */
+            border:none;
+            box-shadow:5px 5px 5px rgb(107, 106, 106);
         }
         .wraper2{
             width:50%;
@@ -84,9 +89,19 @@
             margin:auto;
         }
         table,td,tr,th{
-            border:2px solid rgb(90, 89, 89);
+            border:2px solid rgb(225, 223, 223,0.4);
             border-collapse:collapse;
             padding:0.7rem;
+        }
+        tr:nth-child(even){
+            background-color:rgba(234, 238, 237, 0.5);
+        }
+        .fa-pen{
+            color:blue;
+            border-bottom:3px solid blue;
+        }
+        .fa-trash{
+            color:red;
         }
     </style>
 </head>
@@ -202,9 +217,11 @@
         console.log('inner console',searchdivvalue);
         let updateagainarray=userarray.filter(e=>e.name==searchdivvalue);
         console.log(updateagainarray);
-        displayuserinfo(updateagainarray);
+        // setTimeout(()=>{
+            displayuserinfo(updateagainarray);
+        // },1000);
     }
-    setTimeout(updatearray,2000);
+    // setTimeout(updatearray,1000);
 
     // console.log(userarray);
     </script>
