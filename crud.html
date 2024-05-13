@@ -34,6 +34,7 @@
             height:80vh;
             padding:2rem;
             background-color:#fff;
+            border-radius:5px;
             /* border:2px solid gray; */
             border:none;
             box-shadow:5px 5px 5px rgb(107, 106, 106);
@@ -161,6 +162,12 @@
             obj.phone=user[2].value;
             obj.email=user[3].value;
             obj.address=user[4].value;
+            for(let key in obj){
+                if(obj[key]==''){
+                    alert('Enter User information');
+                    return 
+                }
+            }
             userarray.push({...obj});
             displayuserinfo(userarray);
             removeinput();
@@ -190,6 +197,7 @@
                 tr.appendChild(td);
             }
             let edit=document.createElement('td');
+            edit.addEventListener('click', edituserinfo);
             edit.innerHTML='<i class="fa-solid fa-pen"></i>';
             tr.appendChild(edit);
             let delet=document.createElement('td');
@@ -200,9 +208,15 @@
             });
         }
 
+        
+        function edituserinfo(){
+            let m=this.closest('tr');
+            m.setAttribute('contenteditable','true');
+        }
+
         function removeuserinfo() {
         let t=this.closest('tr').remove();
-        let getusername=this.closest('tr').firstElementChild.innerHTML;
+        let getusername=this.closest('tr').firstElementSibling.innerHTML;
         console.log(getusername);
         let updateuserarray=userarray.findIndex(e=>e.name==getusername);
         userarray.splice(updateuserarray,1);
@@ -210,7 +224,7 @@
     }
 
     let searchdiv=document.querySelector('.searchhere');
-    searchdiv.addEventListener('click',updatearray);
+    searchdiv.addEventListener('dblclick',updatearray);
   
     function updatearray(){
         let searchdivvalue=searchdiv.value;
