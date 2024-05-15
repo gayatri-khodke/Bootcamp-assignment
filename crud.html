@@ -162,6 +162,7 @@
             obj.phone=user[2].value;
             obj.email=user[3].value;
             obj.address=user[4].value;
+            // if user do not enter fill all information then alert() method will call
             for(let key in obj){
                 if(obj[key]==''){
                     alert('Enter User information');
@@ -182,6 +183,8 @@
         function displayuserinfo(person){
             let table=document.querySelector('.mytable');
             table.innerHTML='';
+
+            // create heading row of Table
             let tr1=document.createElement('tr');
             for(let i=0;i<headarray.length;i++){
                 let th=document.createElement('th');
@@ -189,6 +192,8 @@
                 tr1.appendChild(th);
             }
             table.appendChild(tr1);
+
+            // add user information in cell
             person.forEach(user=>{
                 let tr=document.createElement('tr');
                 for(let key in user){
@@ -196,6 +201,8 @@
                 td.innerHTML=user[key];
                 tr.appendChild(td);
             }
+
+            // add edit and delete icon and eventlistnear in last two cell 
             let edit=document.createElement('td');
             edit.addEventListener('click', edituserinfo);
             edit.innerHTML='<i class="fa-solid fa-pen"></i>';
@@ -211,7 +218,16 @@
         
         function edituserinfo(){
             let m=this.closest('tr');
-            m.setAttribute('contenteditable','true');
+            let updateperson=m.children;
+            for(let i=0;i<5;i++){
+                user[i].value=updateperson[i].innerText;
+            }
+            let deleteIndex=userarray.findIndex(e=>{
+                e.name==updateperson[0].innerText;
+            })
+            userarray.splice(userarray,1);
+            m.remove();
+            // m.setAttribute('contenteditable','true');
         }
 
         function removeuserinfo() {
